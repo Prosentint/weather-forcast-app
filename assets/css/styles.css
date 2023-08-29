@@ -1,18 +1,70 @@
+/* Sets default for main page */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
 }
 
+/* Sets the gradient on header and centers text*/
 header {
     background: linear-gradient(to right, #3498db, #8e44ad);
     text-align: center;
-    padding: 20px 0;
+    padding: 30px 0;
+    margin-bottom: 20px; 
 }
 
+/* Styles h1 text on heading */
 h1.heading {
-    font-size: 24px;
+    font-size: 30px;
     color: white;
     font-weight: bold;
 }
+
+/* makes the main content of the page a flexbox*/
+main {
+    display: flex;
+}
+
+/* Sizes the left side bar that holds the search info*/
+.sidebar {
+    width: 30%;
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Sizes sending heading tag */
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* Styles city search text field */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styles and sizes search button*/
+.sidebar button {
+    font-size: 18px;
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Creates line between search field and search history*/
+hr {
+    margin: 20px 0;
+    border: 1px solid #ccc;
+}
+
+

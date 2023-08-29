@@ -4,15 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <!-- Links to reset and styles CSS -->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
+    <!-- Header of the page -->
     <header>
         <h1 class="heading">Weather Dashboard</h1>
     </header>
+    <!-- Main page content -->
     <main>
-
+        <!-- Search bar side bar -->
+        <div class="sidebar">
+            <h2>Search for a City:</h2>
+            <input type="text" id="cityInput" placeholder="Enter city name">
+            <button id="searchButton">Search</button>
+            <hr>
+            <!-- Search history list will be created with JS -->
+            <ul id="searchHistory">
+                
+            </ul>
+        </div>
+        
     </main>
 </body>
 </html>
