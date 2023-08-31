@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchButton = document.getElementById("searchButton");
     const searchHistory = document.getElementById("searchHistory");
 
+    const cityNameEl = document.getElementById("cityName");
+    const tempEl = document.getElementById("temperature");
+    const windSpdEl = document.getElementById("windSpeed");
+    const humidityEl = document.getElementById("humidity");
+
     // Api key to be used on api calls
     const apiKey = '59534706ff7d6c24cea616e99e0f0fd7';
 
@@ -22,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
             if (data.length > 0) {
                 // Checks if it has been searched for
                 if (!searchHistoryList.includes(data[0].name)){
@@ -34,9 +38,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Set the lat and lon variables for later
                 let lat = data[0].lat;
                 let lon = data[0].lon;
+                setCurrentCity(lat, lon, data[0].name);
             }
             });
     });
+
+    // Sets weather box info to selected city
+    function setCurrentCity(lat, lon, name){
+        
+        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data.list[0].main);
+            cityNameEl.textContent = name;
+            tempEl.textContent = data.list[0].main.temp;
+            windSpdEl.textContent = data.list[0].wind.speed;
+            humidityEl.textContent = data.list[0].main.humidity;
+        });
+    }
 
     // Creates and appends an item to search history
     function addToSearchHistory(cityName) {

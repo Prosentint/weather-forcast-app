@@ -33,9 +33,16 @@ main {
     padding: 20px;
 }
 
-/* Sizes sending heading tag */
+/* Sizes second heading tag */
 h2 {
     font-size: 22px;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+/* Sizes third heading tag */
+h3 {
+    font-size: 28px;
     font-weight: bold;
     padding: 5px 0;
 }
@@ -83,7 +90,7 @@ hr {
 
 /* Styles the textboxs the display current info */
 .weather-details p{
-    padding: 3px 0;
+    padding: 5px 0;
 }
 
 /* Lowers the 5 day forcast from the rest of weather box content */
