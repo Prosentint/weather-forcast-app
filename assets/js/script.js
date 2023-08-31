@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
             tempEl.textContent = data.list[0].main.temp;
             windSpdEl.textContent = data.list[0].wind.speed;
             humidityEl.textContent = data.list[0].main.humidity;
+
+            // Call the function to update the 5-day forecast
+            updateFiveDayForecast(lat, lon);
         });
     }
 
@@ -76,4 +79,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.textContent = cityName;
                 searchHistory.appendChild(li);
     }
+
+    // Function to update the 5-day forecast
+    function updateFiveDayForecast(lat, lon) {
+    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            const forecastBoxes = document.querySelectorAll(".forecast-box");
+
+            // Loop through the forecast boxes and update them with data
+            for (let i = 0; i < forecastBoxes.length; i++) {
+                console.log(i);
+                const forecastBox = forecastBoxes[i];
+                const forecastData = data.list[i * 8]; // Get data for every 8th element (1 per day)
+
+                // Extract date and format it
+                const date = new Date(forecastData.dt * 1000); // Convert timestamp to date
+                const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+                // Update the forecast box content
+                forecastBox.innerHTML = `
+                    <h4>${formattedDate}</h4>
+                    <div id="icon"><img id="wicon" src= 'http://openweathermap.org/img/w/${forecastData.weather[0].icon}.png' alt="Weather icon"></div>
+                    <p>Temp: ${forecastData.main.temp}°C</p>
+                    <p>Wind: ${forecastData.wind.speed} m/s</p>
+                    <p>Humidity: ${forecastData.main.humidity}%</p>
+                `;
+            }
+        });
+}
+
 });

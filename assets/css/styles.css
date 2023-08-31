@@ -114,6 +114,11 @@ hr {
     background-color: #ccc;
 }
 
+/* Styling for text in forcast box */
+.forecast-box>* {
+    padding: 8px;
+}
+
 /* Styling for search history boxes */
 #searchHistory li{
     font-size: 15px;
