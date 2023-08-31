@@ -20,13 +20,32 @@
             <h2>Search for a City:</h2>
             <input type="text" id="cityInput" placeholder="Enter city name">
             <button id="searchButton">Search</button>
+            <div id="citySuggestions" class="suggestions"></div>
             <hr>
-            <!-- Search history list will be created with JS -->
             <ul id="searchHistory">
-                
+                <!-- JavaScript will populate this list -->
             </ul>
         </div>
-        
+
+        <!-- Box that hold rest of main page content -->
+        <div class="weather-box">
+            <h2 id="cityName">City Name</h2>
+            <div class="weather-details">
+                <p>Temp: <span id="temperature">--°C</span></p>
+                <p>Wind: <span id="windSpeed">-- m/s</span></p>
+                <p>Humidity: <span id="humidity">--%</span></p>
+            </div>
+            <h2>5-Day Forecast</h2>
+            <div class="forecast">
+                <!-- These are test boxes and will be removed from html later, it will be populated by JS later -->
+                <div class="forecast-box"></div>
+                <div class="forecast-box"></div>
+                <div class="forecast-box"></div>
+                <div class="forecast-box"></div>
+                <div class="forecast-box"></div>
+            </div>
+        </div>
     </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
