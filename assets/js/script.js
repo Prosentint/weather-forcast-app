@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // gets what was typed in search bar
         const cityName = cityInput.value.trim();
         // makes url using input city name and api key
-        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`;
+        const url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`;
         // api call
         fetch(url)
         .then(function (response) {
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Sets weather box info to selected city
     function setCurrentCity(lat, lon, name){
-        const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         fetch(url)
         .then(function (response) {
             return response.json();
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the 5-day forecast
     function updateFiveDayForecast(lat, lon) {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
     fetch(url)
         .then(function (response) {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Update the forecast box content
                 forecastBox.innerHTML = `
                     <h4>${formattedDate}</h4>
-                    <div id="icon"><img id="wicon" src= 'http://openweathermap.org/img/w/${forecastData.weather[0].icon}.png' alt="Weather icon"></div>
+                    <div id="icon"><img id="wicon" src= 'https://openweathermap.org/img/w/${forecastData.weather[0].icon}.png' alt="Weather icon"></div>
                     <p>Temp: ${forecastData.main.temp}°C</p>
                     <p>Wind: ${forecastData.wind.speed} m/s</p>
                     <p>Humidity: ${forecastData.main.humidity}%</p>
