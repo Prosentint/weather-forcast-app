@@ -1,10 +1,10 @@
 // waits for the page to finish loading
 document.addEventListener("DOMContentLoaded", function () {
-    // sets html elements to variables
+    // sets html search elements to variables
     const cityInput = document.getElementById("cityInput");
     const searchButton = document.getElementById("searchButton");
     const searchHistory = document.getElementById("searchHistory");
-
+    // sets html Weather box elements to variables
     const cityNameEl = document.getElementById("cityName");
     const tempEl = document.getElementById("temperature");
     const windSpdEl = document.getElementById("windSpeed");
@@ -43,9 +43,18 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    // Adds a click event listener to each li in search history
+    searchHistory.addEventListener("click", function (event) {
+        if (event.target.tagName === "LI") {
+            const cityName = event.target.textContent;
+            cityInput.value = cityName;
+            // Trigger a click on the search button to load the selected city's data
+            searchButton.click();
+        }
+});
+
     // Sets weather box info to selected city
     function setCurrentCity(lat, lon, name){
-        
         const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         fetch(url)
         .then(function (response) {
@@ -53,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(function (data) {
             console.log(data.list[0].main);
+            // Sets weather box text
             cityNameEl.textContent = name;
             tempEl.textContent = data.list[0].main.temp;
             windSpdEl.textContent = data.list[0].wind.speed;
