@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cityInput = document.getElementById("cityInput");
     const searchButton = document.getElementById("searchButton");
     const searchHistory = document.getElementById("searchHistory");
+    const clearHistoryButton = document.getElementById("clearHistoryButton");
     // sets html Weather box elements to variables
     const cityNameEl = document.getElementById("cityName");
     const tempEl = document.getElementById("temperature");
@@ -14,6 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const apiKey = '59534706ff7d6c24cea616e99e0f0fd7';
 
     let searchHistoryList = [];
+
+    // Loads saved data from localStorage
+    const savedCity = localStorage.getItem("currentCity");
+    const savedSearchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+    // checks if there is a saved city, and if so displays it
+    if (savedCity) {
+        const [lat, lon, name] = savedCity.split(",");
+        setCurrentCity(lat, lon, name);
+    }
+
+    // checks if there is saved search history, and if so displays it
+    if (savedSearchHistory.length > 0) {
+        savedSearchHistory.forEach(cityName => {
+            addToSearchHistory(cityName);
+            searchHistoryList.push(cityName);
+        });
+    }
     
     // Listener for search button
     searchButton.addEventListener("click", function () {
@@ -34,6 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     // adds search to search history
                     addToSearchHistory(data[0].name);
                     cityInput.value = "";
+                    // saves history to local storage
+                    localStorage.setItem("searchHistory", JSON.stringify(searchHistoryList));
                 }
                 // Set the lat and lon variables for later
                 let lat = data[0].lat;
@@ -61,15 +82,21 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function (data) {
-            console.log(data.list[0].main);
+            // Extract date and format it
+            const date = new Date(data.list[0].dt * 1000); // Convert timestamp to date
+            const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
             // Sets weather box text
-            cityNameEl.textContent = name;
+            cityNameEl.textContent = name + " (" + formattedDate + ")";
             tempEl.textContent = data.list[0].main.temp;
             windSpdEl.textContent = data.list[0].wind.speed;
             humidityEl.textContent = data.list[0].main.humidity;
 
             // Call the function to update the 5-day forecast
             updateFiveDayForecast(lat, lon);
+
+            // saves current city to local storage
+            const savedCity = `${lat},${lon},${name}`;
+            localStorage.setItem("currentCity", savedCity);
         });
     }
 
@@ -93,9 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Loop through the forecast boxes and update them with data
             for (let i = 0; i < forecastBoxes.length; i++) {
-                console.log(i);
                 const forecastBox = forecastBoxes[i];
-                const forecastData = data.list[i * 8]; // Get data for every 8th element (1 per day)
+                const forecastData = data.list[(i+1) * 7]; // Get data for every 7th element (1 per day)
 
                 // Extract date and format it
                 const date = new Date(forecastData.dt * 1000); // Convert timestamp to date
@@ -107,10 +133,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div id="icon"><img id="wicon" src= 'https://openweathermap.org/img/w/${forecastData.weather[0].icon}.png' alt="Weather icon"></div>
                     <p>Temp: ${forecastData.main.temp}°C</p>
                     <p>Wind: ${forecastData.wind.speed} m/s</p>
-                    <p>Humidity: ${forecastData.main.humidity}%</p>
-                `;
+                    <p>Humidity: ${forecastData.main.humidity}%</p>`;
             }
         });
-}
+    }
+
+    // Function to clear the search history
+    function clearSearchHistory() {
+        searchHistoryList = [];
+        searchHistory.innerHTML = ""; 
+        localStorage.removeItem("searchHistory"); 
+    }
+
+    // Add a click event listener to the clear history button
+    clearHistoryButton.addEventListener("click", clearSearchHistory);
 
 });
