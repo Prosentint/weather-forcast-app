@@ -86,14 +86,18 @@ hr {
     border: 1px solid #ccc;
 }
 
+#cityName{
+    display: flex;
+}
+
 /* Styles the box that holds the text fields for current info */
 .weather-details {
-    margin-top: 20px;
+    margin-top: 12px;
 }
 
 /* Styles the textboxs the display current info */
 .weather-details p{
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 /* Lowers the 5 day forcast from the rest of weather box content */

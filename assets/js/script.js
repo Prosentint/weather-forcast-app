@@ -85,11 +85,17 @@ document.addEventListener("DOMContentLoaded", function () {
             // Extract date and format it
             const date = new Date(data.list[0].dt * 1000); // Convert timestamp to date
             const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+            const iconEl = document.createElement("div");
+            iconEl.innerHTML = `<img id="wicon" src="https://openweathermap.org/img/w/${data.list[0].weather[0].icon}.png" alt="Weather icon Current">`;
+
             // Sets weather box text
             cityNameEl.textContent = name + " (" + formattedDate + ")";
             tempEl.textContent = data.list[0].main.temp;
             windSpdEl.textContent = data.list[0].wind.speed;
             humidityEl.textContent = data.list[0].main.humidity;
+
+            cityNameEl.appendChild(iconEl);
 
             // Call the function to update the 5-day forecast
             updateFiveDayForecast(lat, lon);
