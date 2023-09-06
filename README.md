@@ -22,7 +22,7 @@ unless it is already present in the history. If this button is clicked, it will 
 that respective city into current city.
 
 
-![Screenshot of Page](./assets/images/screenshot.JPG)
+![Screenshot of Page](./assets/images/screenshot1.JPG)
 
 ## Credits
 
